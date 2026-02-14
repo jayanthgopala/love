@@ -80,7 +80,7 @@ function LovePage() {
 
       console.log('✅ Email sent successfully!');
       console.log('Response:', response);
-      alert('Email sent successfully! Check ' + recipientEmail);
+      alert('Message sent');
     } catch (error) {
       console.error('❌ Failed to send email!');
       console.error('Error details:', error);
@@ -132,7 +132,7 @@ function LovePage() {
       console.log('✅ Custom message sent successfully!');
       console.log('Response:', response);
       setEmailSent(true);
-      alert('Your message has been sent successfully! 💌');
+      alert('Message sent');
     } catch (error) {
       console.error('❌ Failed to send custom message!');
       console.error('Error details:', error);
@@ -324,7 +324,7 @@ function LovePage() {
                 color: '#10b981',
               }}
             >
-              Your message has been sent successfully! 💌
+              Message sent
             </div>
           )}
         </div>
