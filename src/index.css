@@ -39,3 +39,16 @@ code {
 textarea::placeholder {
   color: #6b7280;
 }
+
+@keyframes glowShine {
+  0% {
+    filter: drop-shadow(0 0 1px rgba(255, 255, 255, 0.15));
+  }
+  50% {
+    filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.4)) 
+            drop-shadow(0 0 10px rgba(255, 255, 255, 0.2));
+  }
+  100% {
+    filter: drop-shadow(0 0 1px rgba(255, 255, 255, 0.15));
+  }
+}

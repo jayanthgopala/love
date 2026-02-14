@@ -14,18 +14,20 @@ function App() {
   // Watermark/link style
   const watermarkStyle = {
     position: 'fixed',
-    top: '16px',
-    right: '24px',
+    bottom: '24px',
+    right: '32px',
     zIndex: 9999,
-    color: 'rgba(0,0,0,0.08)',
-    fontSize: '1.1rem',
-    fontWeight: 600,
+    color: 'rgba(255, 255, 255, 0.12)',
+    fontSize: '1rem',
+    fontWeight: 300,
+    fontFamily: "'Inter', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif",
     textDecoration: 'none',
     userSelect: 'none',
     pointerEvents: 'auto',
-    letterSpacing: '0.04em',
-    transition: 'color 0.2s',
+    letterSpacing: '0.08em',
     cursor: 'pointer',
+    textShadow: '0 2px 4px rgba(0, 0, 0, 0.3), 0 4px 8px rgba(0, 0, 0, 0.2), 0 8px 16px rgba(0, 0, 0, 0.15)',
+    animation: 'glowShine 3s ease-in-out infinite',
   };
   const [noButtonPosition, setNoButtonPosition] = useState({ x: 0, y: 0 });
   const [showLoveMessage, setShowLoveMessage] = useState(false);
@@ -112,7 +114,7 @@ function App() {
           style={watermarkStyle}
           tabIndex={-1}
         >
-          made by jayanth gopala
+          made by JAYANTH GOPALA
         </a>
       <div
         style={{
@@ -268,7 +270,7 @@ function App() {
         style={watermarkStyle}
         tabIndex={-1}
       >
-        made by jayanth gopala
+        made by JAYANTH GOPALA
       </a>
     <div
       style={{

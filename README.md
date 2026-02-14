@@ -4,7 +4,7 @@ This is a React app that lets you send a sweet proposal and messages using Email
 
 ---
 
-## ✉️ Setting up EmailJS
+##  Setting up EmailJS
 
 1. **Create an EmailJS account:**
 	- Go to [EmailJS](https://www.emailjs.com/) and sign up for a free account.
@@ -23,7 +23,7 @@ This is a React app that lets you send a sweet proposal and messages using Email
 
 ---
 
-## 🚀 Deploying to Vercel or Netlify
+##  Deploying to Vercel or Netlify
 
 ### 1. **Push your code to GitHub (or any git provider):**
 
@@ -41,7 +41,7 @@ This is a React app that lets you send a sweet proposal and messages using Email
 
 ---
 
-## 💻 Running Locally
+##  Running Locally
 
 1. **Install dependencies:**
 	```bash
@@ -57,13 +57,13 @@ This is a React app that lets you send a sweet proposal and messages using Email
 
 ---
 
-## 📝 Customization
+##  Customization
 - You can change the rose image or text in `src/App.jsx`.
 - All sensitive keys are loaded from environment variables for security.
 
 ---
 
-## 📧 Issues
+##  Issues
 If you have trouble with EmailJS, double-check your keys and template IDs, and make sure your email service is connected in the EmailJS dashboard.
 
 ---
