@@ -101,9 +101,33 @@ function EmailGenerator() {
           >
             Link Generator
           </h1>
-          <p style={{ color: '#6b7280' }}>
+          <p style={{ color: '#6b7280', marginBottom: '1rem' }}>
             Generate a personalized love page link
           </p>
+
+          {/* Background Information */}
+          <div
+            style={{
+              backgroundColor: '#f8fafc',
+              padding: '1rem',
+              borderRadius: '0.5rem',
+              marginBottom: '1.5rem',
+              border: '1px solid #e2e8f0',
+            }}
+          >
+            <p
+              style={{
+                fontSize: '0.875rem',
+                color: '#64748b',
+                lineHeight: '1.5',
+                margin: '0',
+              }}
+            >
+              <strong>How it works:</strong> Enter an email address to create a unique link to a romantic Valentine's Day page.
+              Share this link with your special someone - they'll receive email notifications when they interact with the page!
+              💕
+            </p>
+          </div>
         </div>
 
         {generatedLink ? (

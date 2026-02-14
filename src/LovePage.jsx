@@ -62,12 +62,14 @@ function LovePage() {
     try {
       const templateParams = {
         to_email: recipientEmail,
+        subject: 'Love Alert! 💖',
         message: messageContent,
       };
 
       console.log('📧 Attempting to send email...');
       console.log('Service ID:', EMAILJS_SERVICE_ID);
       console.log('Template ID:', EMAILJS_TEMPLATE_ID);
+      console.log('Template Params:', templateParams);
 
       const response = await emailjs.send(
         EMAILJS_SERVICE_ID,
@@ -89,6 +91,10 @@ function LovePage() {
   };
 
   const handleSendMessage = async () => {
+    console.log('🔍 handleSendMessage called');
+    console.log('Message state:', message);
+    console.log('Message trimmed:', message.trim());
+
     if (message.trim() === '') {
       alert('Please write a message before sending!');
       return;
@@ -109,10 +115,12 @@ function LovePage() {
     try {
       const templateParams = {
         to_email: recipientEmail,
+        subject: 'A Sweet Message 💌',
         message: messageContent,
       };
 
       console.log('📧 Attempting to send custom message...');
+      console.log('Template Params:', templateParams);
 
       const response = await emailjs.send(
         EMAILJS_SERVICE_ID,
@@ -130,6 +138,7 @@ function LovePage() {
       console.error('Error details:', error);
       console.error('Error text:', error.text);
       console.error('Error status:', error.status);
+      console.error('Error message:', error.message);
       alert('Failed to send message: ' + (error.text || error.message || 'Unknown error'));
     }
   };
