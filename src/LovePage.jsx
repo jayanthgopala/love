@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Heart } from 'lucide-react';
 import emailjs from '@emailjs/browser';
 
@@ -34,7 +35,14 @@ function LovePage() {
   const [isNoButtonMoved, setIsNoButtonMoved] = useState(false);
   const [message, setMessage] = useState('');
   const [emailSent, setEmailSent] = useState(false);
+  const [showSendAgain, setShowSendAgain] = useState(false);
+  const [redirectAfterSend, setRedirectAfterSend] = useState(false);
+  const [showMessageCard, setShowMessageCard] = useState(false);
+  const [showPopup, setShowPopup] = useState(false);
+  const [showSendCard, setShowSendCard] = useState(false);
   const [recipientEmail, setRecipientEmail] = useState('develouperforlove@gmail.com');
+
+  const navigate = useNavigate();
 
   const moveNoButton = () => {
     const maxX = window.innerWidth - 100;
@@ -88,7 +96,7 @@ function LovePage() {
     }
   };
 
-  const handleSendMessage = async () => {
+  const handleSendMessage = () => {
     console.log('🔍 handleSendMessage called');
     console.log('Message state:', message);
     console.log('Message trimmed:', message.trim());
@@ -98,6 +106,10 @@ function LovePage() {
       return;
     }
 
+    setShowSendCard(true);
+  };
+
+  const handleConfirmSend = async () => {
     const messageContent = `💌 A Sweet Message from Your Love 💌\n\n"${message}"\n\nSent with all the love in her heart ❤️\nTime: ${new Date().toLocaleString()}\n\nYour special someone wanted you to know how much you mean to them! 🌹`;
 
     console.log('\n=== Sending Custom Message ===');
@@ -106,6 +118,7 @@ function LovePage() {
 
     if (!EMAILJS_SERVICE_ID || !EMAILJS_TEMPLATE_ID || !EMAILJS_PUBLIC_KEY) {
       console.error('❌ Missing EmailJS configuration!');
+      alert('EmailJS not configured. Check .env file and console.');
       return;
     }
 
@@ -129,12 +142,19 @@ function LovePage() {
       console.log('✅ Custom message sent successfully!');
       console.log('Response:', response);
       setEmailSent(true);
+      setShowMessageCard(true);
+      setShowSendCard(false);
+      // Show success message and redirect after delay
+      setTimeout(() => {
+        navigate('/');
+      }, 2000);
     } catch (error) {
       console.error('❌ Failed to send custom message!');
       console.error('Error details:', error);
       console.error('Error text:', error.text);
       console.error('Error status:', error.status);
       console.error('Error message:', error.message);
+      alert('Failed to send message: ' + (error.text || error.message || 'Unknown error'));
     }
   };
 
@@ -183,6 +203,113 @@ function LovePage() {
         >
           designed by JAYANTH GOPALA
         </a>
+
+        {showSendCard && (
+          <div
+            style={{
+              position: 'fixed',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              backgroundColor: 'rgba(0,0,0,0.5)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              zIndex: 1000,
+            }}
+            onClick={() => setShowSendCard(false)}
+          >
+            <div
+              style={{
+                backgroundColor: 'white',
+                padding: '2rem',
+                borderRadius: '1rem',
+                boxShadow: '0 25px 50px -12px rgba(0,0,0,0.25)',
+                maxWidth: '28rem',
+                textAlign: 'center',
+                margin: '1rem',
+                position: 'relative',
+              }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button
+                onClick={() => setShowSendCard(false)}
+                style={{
+                  position: 'absolute',
+                  top: '1rem',
+                  right: '1rem',
+                  backgroundColor: 'transparent',
+                  border: 'none',
+                  cursor: 'pointer',
+                  fontSize: '1.5rem',
+                  color: '#6b7280',
+                  padding: '0.25rem',
+                  borderRadius: '50%',
+                  width: '2rem',
+                  height: '2rem',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+                onMouseEnter={(e) => {
+                  e.target.style.backgroundColor = '#f3f4f6';
+                }}
+                onMouseLeave={(e) => {
+                  e.target.style.backgroundColor = 'transparent';
+                }}
+              >
+                ×
+              </button>
+              <Heart style={{ width: '4rem', height: '4rem', color: '#ef4444', margin: '0 auto 1rem auto' }} />
+              <h3
+                style={{
+                  margin: '0 0 0.5rem 0',
+                  color: '#374151',
+                  fontSize: '1.5rem',
+                  fontWeight: 'bold',
+                }}
+              >
+                Send this to your love ❤️
+              </h3>
+              <p
+                style={{
+                  color: '#6b7280',
+                  marginBottom: '1.5rem',
+                  lineHeight: '1.6',
+                }}
+              >
+                SHARE SAME WITH THEM
+              </p>
+              <button
+                onClick={handleConfirmSend}
+                style={{
+                  padding: '0.75rem 2rem',
+                  backgroundColor: '#10b981',
+                  color: 'white',
+                  borderRadius: '9999px',
+                  border: 'none',
+                  cursor: 'pointer',
+                  boxShadow: '0 4px 12px rgba(16,185,129,0.3)',
+                  transition: 'all 0.2s',
+                  fontSize: '1rem',
+                  fontWeight: 'bold',
+                }}
+                onMouseEnter={(e) => {
+                  e.target.style.backgroundColor = '#059669';
+                  e.target.style.transform = 'scale(1.05)';
+                }}
+                onMouseLeave={(e) => {
+                  e.target.style.backgroundColor = '#10b981';
+                  e.target.style.transform = 'scale(1)';
+                }}
+              >
+                Send 💌
+              </button>
+            </div>
+          </div>
+        )}
+
       <div
         style={{
           minHeight: '100vh',
@@ -319,7 +446,40 @@ function LovePage() {
                 color: '#10b981',
               }}
             >
-              Message sent
+              Your message has been sent successfully! 💌
+            </div>
+          )}
+
+          {showMessageCard && (
+            <div
+              style={{
+                marginTop: '1rem',
+                padding: '1rem',
+                backgroundColor: 'rgba(255,255,255,0.8)',
+                borderRadius: '0.5rem',
+                border: '1px solid #e5e7eb',
+                boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
+              }}
+            >
+              <h3
+                style={{
+                  margin: '0 0 0.5rem 0',
+                  color: '#374151',
+                  fontSize: '1.125rem',
+                  fontWeight: 'bold',
+                }}
+              >
+                Sent Message:
+              </h3>
+              <p
+                style={{
+                  color: '#6b7280',
+                  fontStyle: 'italic',
+                  lineHeight: '1.6',
+                }}
+              >
+                "{message}"
+              </p>
             </div>
           )}
         </div>
@@ -453,6 +613,117 @@ function LovePage() {
         </div>
       </div>
     </div>
+
+    {showPopup && (
+      <div
+        style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          width: '100vw',
+          height: '100vh',
+          backgroundColor: 'rgba(0,0,0,0.5)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          zIndex: 1000,
+        }}
+      >
+        <div
+          style={{
+            backgroundColor: 'white',
+            padding: '2rem',
+            borderRadius: '1rem',
+            boxShadow: '0 10px 25px rgba(0,0,0,0.2)',
+            textAlign: 'center',
+            maxWidth: '400px',
+            width: '90%',
+          }}
+        >
+          <h3
+            style={{
+              margin: '0 0 1rem 0',
+              color: '#374151',
+              fontSize: '1.25rem',
+              fontWeight: 'bold',
+            }}
+          >
+            Magical Question 💫
+          </h3>
+          <p
+            style={{
+              margin: '0 0 1.5rem 0',
+              color: '#10b981',
+              fontSize: '1rem',
+              fontWeight: 'bold',
+            }}
+          >
+            Your message has been sent successfully! 💌
+          </p>
+          <p
+            style={{
+              margin: '0 0 1.5rem 0',
+              color: '#6b7280',
+              fontSize: '1rem',
+            }}
+          >
+            Do u want to send the same message again?
+          </p>
+          <div
+            style={{
+              display: 'flex',
+              gap: '1rem',
+              justifyContent: 'center',
+            }}
+          >
+            <button
+              onClick={() => {
+                setRedirectAfterSend(true);
+                handleSendMessage();
+                setShowPopup(false);
+              }}
+              style={{
+                padding: '0.75rem 1.5rem',
+                backgroundColor: '#10b981',
+                color: 'white',
+                borderRadius: '0.5rem',
+                border: 'none',
+                cursor: 'pointer',
+                fontSize: '1rem',
+                fontWeight: 'bold',
+                transition: 'background-color 0.2s',
+              }}
+              onMouseEnter={(e) => (e.target.style.backgroundColor = '#059669')}
+              onMouseLeave={(e) => (e.target.style.backgroundColor = '#10b981')}
+            >
+              Yes, Send Again ✨
+            </button>
+            <button
+              onClick={() => {
+                setShowPopup(false);
+                navigate('/');
+              }}
+              style={{
+                padding: '0.75rem 1.5rem',
+                backgroundColor: '#6b7280',
+                color: 'white',
+                borderRadius: '0.5rem',
+                border: 'none',
+                cursor: 'pointer',
+                fontSize: '1rem',
+                fontWeight: 'bold',
+                transition: 'background-color 0.2s',
+              }}
+              onMouseEnter={(e) => (e.target.style.backgroundColor = '#4b5563')}
+              onMouseLeave={(e) => (e.target.style.backgroundColor = '#6b7280')}
+            >
+              Go to Link Generation
+            </button>
+          </div>
+        </div>
+      </div>
+    )}
+
     </>
   );
 }
