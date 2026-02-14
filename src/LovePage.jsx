@@ -10,7 +10,7 @@ const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
 const ROSE_IMAGE_URL = 'https://images.unsplash.com/photo-1518895949257-7621c3c786d7?ixlib=rb-1.2.1&auto=format&fit=crop&w=865&q=80';
 const BACKGROUND_IMAGE_URL = ROSE_IMAGE_URL;
 
-function App() {
+function LovePage() {
   // Watermark/link style
   const watermarkStyle = {
     position: 'fixed',
@@ -47,7 +47,6 @@ function App() {
 
   const handleYesClick = async () => {
     setShowLoveMessage(true);
-
     const messageContent = `💖 LOVE ALERT! 💖\n\nSHE SAID YES! ❤️\n\nYour special someone just accepted your proposal!\nTime: ${new Date().toLocaleString()}\n\nCongratulations! Your love story continues... 🌹`;
 
     console.log('\n=== Sending YES Email ===');
@@ -155,7 +154,7 @@ function App() {
     // Parse URL parameters for custom email recipient
     const urlParams = new URLSearchParams(window.location.search);
     const emailParam = urlParams.get('email');
-    
+
     if (emailParam) {
       console.log('📧 Custom email from URL:', emailParam);
       setRecipientEmail(emailParam);
@@ -454,4 +453,4 @@ function App() {
   );
 }
 
-export default App;
+export default LovePage;

@@ -2,6 +2,8 @@
 
 This is a React app that lets you send a sweet proposal and messages using EmailJS. The background features a beautiful rose, and the UI is designed for a delightful experience.
 
+
+
 ---
 
 ##  Setting up EmailJS
@@ -103,17 +105,68 @@ This is a React app that lets you send a sweet proposal and messages using Email
 	
 	- In the template editor, set the Subject to: "A Special Message for You 💌"
 	- **Important:** In the "To Email" field of the template, enter `{{to_email}}` to enable dynamic recipients
-	- Make sure the template uses `{{message}}` as the variable (this will be replaced with the actual message content).
+	- **CRITICAL:** Make sure `{{message}}` appears in the template body where you want the message content to be displayed. The template will not work without this placeholder!
+
+## Email Message Formats
+
+The app sends two types of romantic emails:
+
+### 1. **"Yes" Response Email:**
+```
+💖 LOVE ALERT! 💖
+
+SHE SAID YES! ❤️
+
+Your special someone just accepted your proposal!
+Time: [timestamp]
+
+Congratulations! Your love story continues... 🌹
+```
+
+### 2. **Custom Message Email:**
+```
+💌 A Sweet Message from Your Love 💌
+
+"[user's custom message]"
+
+Sent with all the love in her heart ❤️
+Time: [timestamp]
+
+Your special someone wanted you to know how much you mean to them! 🌹
+```
 
 4. **Get your Public Key, Service ID, and Template ID:**
 	- Find these in the EmailJS dashboard under Account > API Keys and in your service/template settings.
-	- **Note:** All emails from the app will be sent to `develouperforlove@gmail.com`.
+	- **Note:** All emails from the app will be sent to `youremial@gmail.com`.
 5. **Create a `.env` file in your project root:**
 	```env
 	VITE_EMAILJS_PUBLIC_KEY=your_public_key_here
 	VITE_EMAILJS_SERVICE_ID=your_service_id_here
 	VITE_EMAILJS_TEMPLATE_ID=your_template_id_here
 	```
+
+---
+
+##  Using URL Parameters for Custom Recipients
+
+You can customize the recipient email by adding an `email` parameter to the URL. If no email is provided, the app will use the default recipient: `develouperforlove@gmail.com`.
+
+### Examples:
+
+**With custom email:**
+```
+https://yourdomain.com/?email=love@example.com
+http://localhost:5173/?email=partner@gmail.com
+```
+
+**Without email parameter (uses default):**
+```
+https://yourdomain.com/
+```
+
+**Important:** Make sure your EmailJS template has `{{to_email}}` set as the "To Email" field for dynamic recipients to work.
+
+This allows you to share personalized links where the proposal emails are sent directly to the intended recipient!
 
 ---
 
@@ -159,6 +212,13 @@ This is a React app that lets you send a sweet proposal and messages using Email
 
 ##  Issues
 If you have trouble with EmailJS, double-check your keys and template IDs, and make sure your email service is connected in the EmailJS dashboard.
+
+### Common Issues:
+- **Blank messages in emails:** Make sure your EmailJS template includes `{{message}}` in the template body, not just the subject
+- **Emails not sending:** Verify your EmailJS service is properly configured and connected
+- **Template not working:** Double-check that `{{to_email}}` is set in the "To Email" field of your template
+
+**Debugging:** Open browser developer tools (F12) and check the Console tab when sending emails to see detailed error messages.
 
 ---
 
