@@ -69,4 +69,4 @@ If you have trouble with EmailJS, double-check your keys and template IDs, and m
 ---
 
 Enjoy spreading love! 🌹
-# Love-accepted
+#MADE SPECIALL FOR YOU BY JAYANTH GOPALA V
