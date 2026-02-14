@@ -55,7 +55,6 @@ function LovePage() {
 
     if (!EMAILJS_SERVICE_ID || !EMAILJS_TEMPLATE_ID || !EMAILJS_PUBLIC_KEY) {
       console.error('❌ Missing EmailJS configuration!');
-      alert('EmailJS not configured. Check .env file and console.');
       return;
     }
 
@@ -80,7 +79,6 @@ function LovePage() {
 
       console.log('✅ Email sent successfully!');
       console.log('Response:', response);
-      alert('Message sent');
     } catch (error) {
       console.error('❌ Failed to send email!');
       console.error('Error details:', error);
@@ -108,7 +106,6 @@ function LovePage() {
 
     if (!EMAILJS_SERVICE_ID || !EMAILJS_TEMPLATE_ID || !EMAILJS_PUBLIC_KEY) {
       console.error('❌ Missing EmailJS configuration!');
-      alert('EmailJS not configured. Check .env file and console.');
       return;
     }
 
@@ -132,14 +129,12 @@ function LovePage() {
       console.log('✅ Custom message sent successfully!');
       console.log('Response:', response);
       setEmailSent(true);
-      alert('Message sent');
     } catch (error) {
       console.error('❌ Failed to send custom message!');
       console.error('Error details:', error);
       console.error('Error text:', error.text);
       console.error('Error status:', error.status);
       console.error('Error message:', error.message);
-      alert('Failed to send message: ' + (error.text || error.message || 'Unknown error'));
     }
   };
 

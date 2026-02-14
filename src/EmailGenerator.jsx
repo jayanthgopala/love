@@ -11,14 +11,12 @@ function EmailGenerator() {
 
   const generateLink = () => {
     if (!email.trim()) {
-      alert('Please enter an email address!');
       return;
     }
 
     // Validate email format
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
-      alert('Please enter a valid email address!');
       return;
     }
 
