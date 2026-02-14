@@ -2,14 +2,31 @@ import React, { useState, useEffect } from 'react';
 import { Heart } from 'lucide-react';
 import emailjs from '@emailjs/browser';
 
-// EmailJS credentials
+// EmailJS credentials are loaded from environment variables
 const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
 const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
-const BACKGROUND_IMAGE_URL =
-  'https://images.unsplash.com/photo-1518895949257-7621c3c786d7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80';
+// Rose image with top part (rose) to be shown in full screen on the second page
+const ROSE_IMAGE_URL = 'https://images.unsplash.com/photo-1518895949257-7621c3c786d7?ixlib=rb-1.2.1&auto=format&fit=crop&w=865&q=80';
+const BACKGROUND_IMAGE_URL = ROSE_IMAGE_URL;
 
 function App() {
+  // Watermark/link style
+  const watermarkStyle = {
+    position: 'fixed',
+    top: '16px',
+    right: '24px',
+    zIndex: 9999,
+    color: 'rgba(0,0,0,0.08)',
+    fontSize: '1.1rem',
+    fontWeight: 600,
+    textDecoration: 'none',
+    userSelect: 'none',
+    pointerEvents: 'auto',
+    letterSpacing: '0.04em',
+    transition: 'color 0.2s',
+    cursor: 'pointer',
+  };
   const [noButtonPosition, setNoButtonPosition] = useState({ x: 0, y: 0 });
   const [showLoveMessage, setShowLoveMessage] = useState(false);
   const [isNoButtonMoved, setIsNoButtonMoved] = useState(false);
@@ -87,29 +104,43 @@ function App() {
 
   if (showLoveMessage) {
     return (
+      <>
+        <a
+          href="https://github.com/jayanthgopala"
+          target="_blank"
+          rel="noopener noreferrer"
+          style={watermarkStyle}
+          tabIndex={-1}
+        >
+          made by jayanth gopala
+        </a>
       <div
         style={{
           minHeight: '100vh',
+          minWidth: '100vw',
+          width: '100vw',
+          height: '100vh',
+          overflow: 'hidden',
           display: 'flex',
-          alignItems: 'center',
+          alignItems: 'flex-start',
           justifyContent: 'center',
           position: 'relative',
-          backgroundImage: `url('${BACKGROUND_IMAGE_URL}')`,
+          backgroundImage: `url('${ROSE_IMAGE_URL}')`,
           backgroundSize: 'cover',
-          backgroundPosition: 'center',
+          backgroundPosition: 'center 10%', // Shift focus to show the top 68-80% of the image
           backgroundRepeat: 'no-repeat',
         }}
       >
         <div
           style={{
-            backgroundColor: 'rgba(255,255,255,0.95)',
+            backgroundColor: 'rgba(255,255,255,0.7)',
             padding: '2rem',
             borderRadius: '0.5rem',
             boxShadow: '0 25px 50px -12px rgba(0,0,0,0.25)',
             maxWidth: '40rem',
             textAlign: 'center',
             width: '90%',
-            margin: '0 auto',
+            margin: '3rem auto 0 auto',
             position: 'relative',
             zIndex: 1,
           }}
@@ -168,7 +199,7 @@ function App() {
               fontSize: '1.1rem',
               lineHeight: '1.6',
               color: '#111827',
-              backgroundColor: 'rgba(255,255,255,0.98)',
+              backgroundColor: 'rgba(255,255,255,0.7)',
               borderRadius: '0.75rem',
               border: '2px solid #cbd5e1',
               boxShadow: 'inset 0 1px 2px rgba(15,23,42,0.05)',
@@ -224,10 +255,21 @@ function App() {
           )}
         </div>
       </div>
-    );
-  }
+    </>
+  );
+}
 
   return (
+    <>
+      <a
+        href="https://github.com/jayanthgopala"
+        target="_blank"
+        rel="noopener noreferrer"
+        style={watermarkStyle}
+        tabIndex={-1}
+      >
+        made by jayanth gopala
+      </a>
     <div
       style={{
         minHeight: '100vh',
@@ -242,7 +284,7 @@ function App() {
     >
       <div
         style={{
-          backgroundColor: 'rgba(255,255,255,0.9)',
+          backgroundColor: 'rgba(255,255,255,0.7)',
           padding: '2rem',
           borderRadius: '0.5rem',
           boxShadow: '0 25px 50px -12px rgba(0,0,0,0.25)',
@@ -342,6 +384,7 @@ function App() {
         </div>
       </div>
     </div>
+    </>
   );
 }
 
