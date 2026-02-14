@@ -1,0 +1,348 @@
+import React, { useState, useEffect } from 'react';
+import { Heart } from 'lucide-react';
+import emailjs from '@emailjs/browser';
+
+// EmailJS credentials
+const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+const BACKGROUND_IMAGE_URL =
+  'https://images.unsplash.com/photo-1518895949257-7621c3c786d7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80';
+
+function App() {
+  const [noButtonPosition, setNoButtonPosition] = useState({ x: 0, y: 0 });
+  const [showLoveMessage, setShowLoveMessage] = useState(false);
+  const [isNoButtonMoved, setIsNoButtonMoved] = useState(false);
+  const [message, setMessage] = useState('');
+  const [emailSent, setEmailSent] = useState(false);
+
+  const moveNoButton = () => {
+    const maxX = window.innerWidth - 100;
+    const maxY = window.innerHeight - 50;
+    const newX = Math.random() * maxX;
+    const newY = Math.random() * maxY;
+    setNoButtonPosition({ x: newX, y: newY });
+    setIsNoButtonMoved(true);
+  };
+
+  const handleYesClick = async () => {
+    setShowLoveMessage(true);
+
+    try {
+      const templateParams = {
+        to_email: 'you',
+        message: `from HER \n SHE said YES! at ${new Date().toLocaleString()}`,
+      };
+
+      const response = await emailjs.send(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        templateParams,
+        EMAILJS_PUBLIC_KEY
+      );
+
+      console.log('Email sent successfully:', response);
+    } catch (error) {
+      console.error('Failed to send email:', error);
+    }
+  };
+
+  const handleSendMessage = async () => {
+    if (message.trim() === '') {
+      alert('Please write a message before sending!');
+      return;
+    }
+
+    try {
+      const templateParams = {
+        to_email: 'you',
+        message: `Message from HER: \n\n${message}\n\nSent at: ${new Date().toLocaleString()}`,
+      };
+
+      const response = await emailjs.send(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        templateParams,
+        EMAILJS_PUBLIC_KEY
+      );
+
+      console.log('Message sent successfully:', response);
+      setEmailSent(true);
+    } catch (error) {
+      console.error('Failed to send message:', error);
+    }
+  };
+
+  useEffect(() => {
+    if (EMAILJS_PUBLIC_KEY) {
+      emailjs.init(EMAILJS_PUBLIC_KEY);
+    } else {
+      console.error('Missing EmailJS public key. Set VITE_EMAILJS_PUBLIC_KEY in .env');
+    }
+  }, []);
+
+  const handleMessageChange = (e) => {
+    setMessage(e.target.value);
+  };
+
+  if (showLoveMessage) {
+    return (
+      <div
+        style={{
+          minHeight: '100vh',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          position: 'relative',
+          backgroundImage: `url('${BACKGROUND_IMAGE_URL}')`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+        }}
+      >
+        <div
+          style={{
+            backgroundColor: 'rgba(255,255,255,0.95)',
+            padding: '2rem',
+            borderRadius: '0.5rem',
+            boxShadow: '0 25px 50px -12px rgba(0,0,0,0.25)',
+            maxWidth: '40rem',
+            textAlign: 'center',
+            width: '90%',
+            margin: '0 auto',
+            position: 'relative',
+            zIndex: 1,
+          }}
+        >
+          <Heart style={{ width: '4rem', height: '4rem', color: '#ef4444', margin: '0 auto 1rem auto' }} className="animate-bounce" />
+          <h1
+            style={{
+              fontSize: '1.875rem',
+              fontWeight: 'bold',
+              color: '#1f2937',
+              marginBottom: '1rem',
+            }}
+          >
+            I Love You! ❤️
+          </h1>
+          <p
+            style={{
+              fontSize: '1.125rem',
+              color: '#374151',
+              marginBottom: '1rem',
+            }}
+          >
+            You've made me the happiest person alive💗
+          </p>
+          <div
+            style={{
+              fontSize: '0.875rem',
+              color: '#4b5563',
+            }}
+          >
+            Forever yours, with all my heart ❤️
+          </div>
+
+          <p
+            style={{
+              fontSize: '1.25rem',
+              color: '#374151',
+              marginTop: '1.5rem',
+              marginBottom: '1rem',
+            }}
+          >
+            A sweet message for you:
+            <br />
+            "Your presence makes everything beautiful, and my heart is filled with joy every time I think of you.💖"
+          </p>
+
+          <textarea
+            value={message}
+            onChange={handleMessageChange}
+            placeholder="Write a message for me 💌"
+            style={{
+              width: '100%',
+              boxSizing: 'border-box',
+              padding: '1rem',
+              marginTop: '1rem',
+              fontSize: '1.1rem',
+              lineHeight: '1.6',
+              color: '#111827',
+              backgroundColor: 'rgba(255,255,255,0.98)',
+              borderRadius: '0.75rem',
+              border: '2px solid #cbd5e1',
+              boxShadow: 'inset 0 1px 2px rgba(15,23,42,0.05)',
+              outline: 'none',
+              resize: 'vertical',
+            }}
+            onFocus={(e) => {
+              e.target.style.borderColor = '#a855f7';
+              e.target.style.boxShadow = '0 0 0 3px rgba(168,85,247,0.2)';
+            }}
+            onBlur={(e) => {
+              e.target.style.borderColor = '#cbd5e1';
+              e.target.style.boxShadow = 'inset 0 1px 2px rgba(15,23,42,0.05)';
+            }}
+            rows="4"
+          />
+
+          <button
+            onClick={handleSendMessage}
+            style={{
+              padding: '0.75rem 2rem',
+              backgroundColor: '#3b82f6',
+              color: 'white',
+              borderRadius: '9999px',
+              border: 'none',
+              cursor: 'pointer',
+              boxShadow: '0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05)',
+              transition: 'all 0.2s',
+              fontSize: '1rem',
+              marginTop: '1rem',
+            }}
+            onMouseEnter={(e) => {
+              e.target.style.backgroundColor = '#2563eb';
+              e.target.style.transform = 'scale(1.05)';
+            }}
+            onMouseLeave={(e) => {
+              e.target.style.backgroundColor = '#3b82f6';
+              e.target.style.transform = 'scale(1)';
+            }}
+          >
+            Send Message 📩
+          </button>
+
+          {emailSent && (
+            <div
+              style={{
+                marginTop: '1rem',
+                color: '#10b981',
+              }}
+            >
+              Your message has been sent successfully! 💌
+            </div>
+          )}
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div
+      style={{
+        minHeight: '100vh',
+        backgroundImage: `url('${BACKGROUND_IMAGE_URL}')`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}
+    >
+      <div
+        style={{
+          backgroundColor: 'rgba(255,255,255,0.9)',
+          padding: '2rem',
+          borderRadius: '0.5rem',
+          boxShadow: '0 25px 50px -12px rgba(0,0,0,0.25)',
+          maxWidth: '32rem',
+          textAlign: 'center',
+          margin: '0 auto',
+        }}
+      >
+        <Heart
+          style={{
+            width: '4rem',
+            height: '4rem',
+            color: '#ef4444',
+            margin: '0 auto 1rem auto',
+          }}
+        />
+        <h1
+          style={{
+            fontSize: '1.875rem',
+            fontWeight: 'bold',
+            color: '#1f2937',
+            marginBottom: '1.5rem',
+          }}
+        >
+          Will You Be Mine Forever?
+        </h1>
+        <p
+          style={{
+            fontSize: '1.125rem',
+            color: '#374151',
+            marginBottom: '2rem',
+          }}
+        >
+          Every moment spent with you feels like a beautiful dream. Would you make me the happiest person by saying yes?
+        </p>
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            gap: '1rem',
+            marginBottom: '1.5rem',
+          }}
+        >
+          <button
+            onClick={handleYesClick}
+            style={{
+              padding: '0.75rem 2rem',
+              backgroundColor: '#ef4444',
+              color: 'white',
+              borderRadius: '9999px',
+              border: 'none',
+              cursor: 'pointer',
+              boxShadow: '0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05)',
+              transition: 'all 0.2s',
+              fontSize: '1rem',
+            }}
+            onMouseEnter={(e) => {
+              e.target.style.backgroundColor = '#dc2626';
+            }}
+            onMouseLeave={(e) => {
+              e.target.style.backgroundColor = '#ef4444';
+            }}
+          >
+            Yes, I Will! ❤️
+          </button>
+          <button
+            style={
+              isNoButtonMoved
+                ? {
+                    position: 'absolute',
+                    left: `${noButtonPosition.x}px`,
+                    top: `${noButtonPosition.y}px`,
+                    transition: 'all 0.2s ease',
+                    padding: '0.75rem 2rem',
+                    backgroundColor: '#6b7280',
+                    color: 'white',
+                    borderRadius: '9999px',
+                    border: 'none',
+                    cursor: 'pointer',
+                    fontSize: '1rem',
+                  }
+                : {
+                    padding: '0.75rem 2rem',
+                    backgroundColor: '#6b7280',
+                    color: 'white',
+                    borderRadius: '9999px',
+                    border: 'none',
+                    cursor: 'pointer',
+                    fontSize: '1rem',
+                  }
+            }
+            onMouseEnter={moveNoButton}
+            onTouchStart={moveNoButton}
+          >
+            No 💔
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default App;
