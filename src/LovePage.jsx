@@ -181,7 +181,7 @@ function LovePage() {
           style={watermarkStyle}
           tabIndex={-1}
         >
-          made by JAYANTH GOPALA
+          designed by JAYANTH GOPALA
         </a>
       <div
         style={{
@@ -337,7 +337,7 @@ function LovePage() {
         style={watermarkStyle}
         tabIndex={-1}
       >
-        made by JAYANTH GOPALA
+        designed by JAYANTH GOPALA
       </a>
     <div
       style={{
