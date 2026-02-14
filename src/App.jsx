@@ -34,6 +34,7 @@ function App() {
   const [isNoButtonMoved, setIsNoButtonMoved] = useState(false);
   const [message, setMessage] = useState('');
   const [emailSent, setEmailSent] = useState(false);
+  const [recipientEmail, setRecipientEmail] = useState('develouperforlove@gmail.com');
 
   const moveNoButton = () => {
     const maxX = window.innerWidth - 100;
@@ -49,8 +50,8 @@ function App() {
 
     try {
       const templateParams = {
-        to_email: 'you',
-        message: `from HER \n SHE said YES! at ${new Date().toLocaleString()}`,
+        to_email: recipientEmail,
+        message: `💖 LOVE ALERT! 💖\n\nSHE SAID YES! ❤️\n\nYour special someone just accepted your proposal!\nTime: ${new Date().toLocaleString()}\n\nCongratulations! Your love story continues... 🌹`,
       };
 
       const response = await emailjs.send(
@@ -74,8 +75,8 @@ function App() {
 
     try {
       const templateParams = {
-        to_email: 'you',
-        message: `Message from HER: \n\n${message}\n\nSent at: ${new Date().toLocaleString()}`,
+        to_email: recipientEmail,
+        message: `💌 A Sweet Message from Your Love 💌\n\n"${message}"\n\nSent with all the love in her heart ❤️\nTime: ${new Date().toLocaleString()}\n\nYour special someone wanted you to know how much you mean to them! 🌹`,
       };
 
       const response = await emailjs.send(

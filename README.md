@@ -11,9 +11,103 @@ This is a React app that lets you send a sweet proposal and messages using Email
 2. **Create an Email Service:**
 	- In the EmailJS dashboard, add your email service (e.g., Gmail, Outlook, etc.).
 3. **Create an Email Template:**
-	- Go to the "Email Templates" section and create a new template. You can use the default template or customize it.
+	- Go to the "Email Templates" section and create a new template.
+	- Use the following HTML template for a beautiful, romantic design:
+	
+	```html
+	<!DOCTYPE html>
+	<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Love Message</title>
+		<style>
+			body {
+				font-family: 'Arial', sans-serif;
+				background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%);
+				margin: 0;
+				padding: 20px;
+				min-height: 100vh;
+			}
+			.container {
+				max-width: 600px;
+				margin: 0 auto;
+				background: rgba(255, 255, 255, 0.95);
+				border-radius: 20px;
+				padding: 30px;
+				box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+				border: 2px solid #ff6b9d;
+			}
+			.header {
+				text-align: center;
+				margin-bottom: 30px;
+			}
+			.heart {
+				font-size: 48px;
+				color: #ff4757;
+				margin-bottom: 10px;
+			}
+			.title {
+				color: #2c3e50;
+				font-size: 28px;
+				font-weight: bold;
+				margin: 0;
+				text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+			}
+			.message {
+				background: #f8f9fa;
+				border-left: 4px solid #ff6b9d;
+				padding: 20px;
+				border-radius: 10px;
+				margin: 20px 0;
+				font-size: 16px;
+				line-height: 1.6;
+				color: #34495e;
+				white-space: pre-line;
+			}
+			.footer {
+				text-align: center;
+				margin-top: 30px;
+				color: #7f8c8d;
+				font-size: 14px;
+			}
+			.sparkle {
+				display: inline-block;
+				animation: sparkle 2s infinite;
+			}
+			@keyframes sparkle {
+				0%, 100% { transform: scale(1); opacity: 1; }
+				50% { transform: scale(1.2); opacity: 0.7; }
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<div class="header">
+				<div class="heart">💖</div>
+				<h1 class="title">A Message of Love</h1>
+			</div>
+			
+			<div class="message">
+				{{message}}
+			</div>
+			
+			<div class="footer">
+				<p>Sent with all my love 💕</p>
+				<p class="sparkle">✨</p>
+				<p><a href="https://github.com/jayanthgopala" style="color: #ff6b9d; text-decoration: none;">Designed by JAYANTH GOPALA V</a></p>
+			</div>
+		</div>
+	</body>
+	</html>
+	```
+	
+	- In the template editor, set the Subject to: "A Special Message for You 💌"
+	- **Important:** In the "To Email" field of the template, enter `{{to_email}}` to enable dynamic recipients
+	- Make sure the template uses `{{message}}` as the variable (this will be replaced with the actual message content).
+
 4. **Get your Public Key, Service ID, and Template ID:**
 	- Find these in the EmailJS dashboard under Account > API Keys and in your service/template settings.
+	- **Note:** All emails from the app will be sent to `develouperforlove@gmail.com`.
 5. **Create a `.env` file in your project root:**
 	```env
 	VITE_EMAILJS_PUBLIC_KEY=your_public_key_here
@@ -69,4 +163,4 @@ If you have trouble with EmailJS, double-check your keys and template IDs, and m
 ---
 
 Enjoy spreading love! 🌹
-#MADE SPECIALL FOR YOU BY JAYANTH GOPALA V
+# [MADE SPECIALL FOR YOU BY JAYANTH GOPALA V](https://github.com/jayanthgopala)
