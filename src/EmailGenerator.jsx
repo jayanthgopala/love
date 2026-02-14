@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { Link, ExternalLink } from 'lucide-react';
 
+// Love-themed background image with hearts
+const LOVE_BACKGROUND_URL = 'https://images.unsplash.com/photo-1518568814500-bf0f8d125f46?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80';
+
 function EmailGenerator() {
   const [email, setEmail] = useState('');
   const [generatedLink, setGeneratedLink] = useState('');
@@ -52,7 +55,10 @@ function EmailGenerator() {
     <div
       style={{
         minHeight: '100vh',
-        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+        backgroundImage: `url('${LOVE_BACKGROUND_URL}')`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
